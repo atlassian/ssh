@@ -5,7 +5,7 @@ import com.atlassian.performance.tools.jvmtasks.IdempotentAction
 import net.schmizz.sshj.SSHClient
 import java.time.Duration
 
-data class Ssh(
+data class Ssh @JvmOverloads constructor(
     val host: SshHost,
     private val connectivityPatience: Int = 4
 ) {

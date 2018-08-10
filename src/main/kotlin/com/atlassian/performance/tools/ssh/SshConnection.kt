@@ -23,6 +23,7 @@ class SshConnection(
         ssh.close()
     }
 
+    @JvmOverloads
     fun execute(
         cmd: String,
         timeout: Duration = Duration.ofSeconds(30),
@@ -41,6 +42,7 @@ class SshConnection(
         return sshResult
     }
 
+    @JvmOverloads
     fun safeExecute(
         cmd: String,
         timeout: Duration = Duration.ofSeconds(30),
