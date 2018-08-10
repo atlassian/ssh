@@ -5,6 +5,13 @@ import java.nio.file.Paths
 import javax.json.Json
 import javax.json.JsonObject
 
+/**
+ * Holds SSH coordinates.
+ *
+ * @param ipAddress IP of the remote system.
+ * @param userName User allowed to connect to the remote server.
+ * @param key Private SSH key that authenticates the user.
+ */
 data class SshHost(
     val ipAddress: String,
     val userName: String,

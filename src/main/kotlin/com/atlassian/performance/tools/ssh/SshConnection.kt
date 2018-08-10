@@ -13,7 +13,12 @@ import java.time.Duration
 import java.time.Instant
 import java.util.concurrent.TimeUnit
 
-class SshConnection(
+/**
+ * [SshConnection] executes remote commands and download files from a remote server.
+ *
+ * @see [Ssh.newConnection]
+ */
+class SshConnection internal constructor(
     private val ssh: SSHClient,
     private val username: String
 ) : Closeable {
@@ -23,6 +28,14 @@ class SshConnection(
         ssh.close()
     }
 
+    /**
+     * Executes a remote command. Throws an exception if [cmd] exits with a non-zero code.
+     *
+     * @param cmd Runs within the secure shell on the remote system. For example: `pwd`.
+     * @param timeout Limits the amount of time spent on waiting for [cmd] to finish. Defaults to 30 seconds.
+     * @param stdout Controls the log level of [cmd]'s standard output stream. Defaults to [Level.DEBUG].
+     * @param stderr Controls the log level of [cmd]'s standard error stream. Defaults to [Level.WARN].
+     */
     @JvmOverloads
     fun execute(
         cmd: String,
@@ -42,6 +55,15 @@ class SshConnection(
         return sshResult
     }
 
+    /**
+     * Executes remote command.
+     * The command is very similar to [execute], but it will return [SshResult] if [cmd] exits with a non-zero code.
+     *
+     * @param cmd Runs within the secure shell on the remote system. For example: `pwd`.
+     * @param timeout Limits the amount of time spent on waiting for [cmd] to finish. Defaults to 30 seconds.
+     * @param stdout Controls the log level of [cmd]'s standard output stream. Defaults to [Level.DEBUG].
+     * @param stderr Controls the log level of [cmd]'s standard error stream. Defaults to [Level.WARN].
+     */
     @JvmOverloads
     fun safeExecute(
         cmd: String,
@@ -61,6 +83,32 @@ class SshConnection(
                     )
                 }
             }
+    }
+
+    /**
+     * Starts a [DetachedProcess]. You can use [stopProcess] to stop it later.
+     */
+    fun startProcess(cmd: String): DetachedProcess {
+        return ssh.startSession().use { DetachedProcess.start(cmd, it) }
+    }
+
+    /**
+     * Stops a [DetachedProcess].
+     */
+    fun stopProcess(process: DetachedProcess) {
+        ssh.startSession().use { process.stop(it) }
+    }
+
+    /**
+     * Downloads files from a remote system.
+     *
+     * @param remoteSource Points to the file on the remote machine.
+     * @param localDestination Points to a destination on a local system.
+     */
+    fun download(remoteSource: String, localDestination: Path) {
+        localDestination.toFile().parentFile.ensureDirectory()
+        val scpFileTransfer = ssh.newSCPFileTransfer()
+        scpFileTransfer.download(remoteSource, localDestination.toString())
     }
 
     private fun Session.Command.waitForCompletion(
@@ -110,20 +158,13 @@ class SshConnection(
         return output
     }
 
-    fun startProcess(cmd: String): DetachedProcess {
-        return ssh.startSession().use { DetachedProcess.start(cmd, it) }
-    }
-
-    fun stopProcess(process: DetachedProcess) {
-        ssh.startSession().use { process.stop(it) }
-    }
-
-    fun download(remoteSource: String, localDestination: Path) {
-        localDestination.toFile().parentFile.ensureDirectory()
-        val scpFileTransfer = ssh.newSCPFileTransfer()
-        scpFileTransfer.download(remoteSource, localDestination.toString())
-    }
-
+    /**
+     * Holds results of a SSH command.
+     *
+     * @param exitStatus Holds exit code from a remotely executed SSH command.
+     * @param output Holds standard output produced by a SSH command.
+     * @param errorOutput Holds standard error produced by a SSH command.
+     */
     data class SshResult(
         val exitStatus: Int,
         val output: String,
@@ -134,7 +175,7 @@ class SshConnection(
         }
     }
 
-    data class SshExecutedCommand(
+    private data class SshExecutedCommand(
         val cmd: String,
         val stdout: String,
         val stderr: String

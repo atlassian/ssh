@@ -5,10 +5,22 @@ import com.atlassian.performance.tools.jvmtasks.IdempotentAction
 import net.schmizz.sshj.SSHClient
 import java.time.Duration
 
+/**
+ * Connects to [host] via SSH.
+ *
+ * @param host remote SSH server we're connecting to.
+ * @param connectivityPatience how many times we're going to try to connect to the server. Defaults to 4.
+ */
 data class Ssh @JvmOverloads constructor(
     val host: SshHost,
     private val connectivityPatience: Int = 4
 ) {
+
+    /**
+     * Connects to [host].
+     *
+     * @return A new [SshConnection].
+     */
     fun newConnection(): SshConnection {
         return SshConnection(
             prepareClient(),
