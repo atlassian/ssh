@@ -1,4 +1,4 @@
-package com.atlassian.performance.tools.ssh
+package com.atlassian.performance.tools.ssh.api
 
 import net.schmizz.sshj.connection.channel.direct.Session
 import org.apache.logging.log4j.LogManager

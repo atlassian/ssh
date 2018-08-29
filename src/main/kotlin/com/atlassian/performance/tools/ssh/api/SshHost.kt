@@ -1,4 +1,4 @@
-package com.atlassian.performance.tools.ssh
+package com.atlassian.performance.tools.ssh.api
 
 import java.nio.file.Path
 import java.nio.file.Paths

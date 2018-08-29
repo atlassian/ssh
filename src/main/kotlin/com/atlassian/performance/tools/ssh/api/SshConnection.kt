@@ -1,4 +1,4 @@
-package com.atlassian.performance.tools.ssh
+package com.atlassian.performance.tools.ssh.api
 
 import com.atlassian.performance.tools.io.api.ensureDirectory
 import net.schmizz.sshj.SSHClient

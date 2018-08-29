@@ -1,4 +1,4 @@
-package com.atlassian.performance.tools.ssh
+package com.atlassian.performance.tools.ssh.api
 
 import com.atlassian.performance.tools.jvmtasks.api.ExponentialBackoff
 import com.atlassian.performance.tools.jvmtasks.api.IdempotentAction
