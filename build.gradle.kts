@@ -1,14 +1,13 @@
 val kotlinVersion = "1.2.30"
-val seleniumVersion = "3.11.0"
 
 plugins {
     kotlin("jvm").version("1.2.30")
-    id("com.atlassian.performance.tools.gradle-release").version("0.0.2")
+    id("com.atlassian.performance.tools.gradle-release").version("0.3.0")
 }
 
 dependencies {
-    compile("com.atlassian.performance.tools:jvm-tasks:0.0.1")
-    compile("com.atlassian.performance.tools:io:0.0.1")
+    compile("com.atlassian.performance.tools:jvm-tasks:[1.0.0,2.0.0)")
+    compile("com.atlassian.performance.tools:io:[1.0.0,2.0.0)")
     compile("org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlinVersion")
     compile("org.glassfish:javax.json:1.1")
     compile("com.hierynomus:sshj:0.23.0")

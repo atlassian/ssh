@@ -1,6 +1,6 @@
 package com.atlassian.performance.tools.ssh
 
-import com.atlassian.performance.tools.io.ensureDirectory
+import com.atlassian.performance.tools.io.api.ensureDirectory
 import net.schmizz.sshj.SSHClient
 import net.schmizz.sshj.connection.channel.direct.Session
 import org.apache.logging.log4j.Level

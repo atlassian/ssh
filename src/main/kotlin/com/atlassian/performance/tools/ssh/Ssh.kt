@@ -1,7 +1,7 @@
 package com.atlassian.performance.tools.ssh
 
-import com.atlassian.performance.tools.jvmtasks.ExponentialBackoff
-import com.atlassian.performance.tools.jvmtasks.IdempotentAction
+import com.atlassian.performance.tools.jvmtasks.api.ExponentialBackoff
+import com.atlassian.performance.tools.jvmtasks.api.IdempotentAction
 import net.schmizz.sshj.SSHClient
 import java.time.Duration
 
