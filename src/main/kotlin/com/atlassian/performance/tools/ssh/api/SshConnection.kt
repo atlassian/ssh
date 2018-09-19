@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Level
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import java.io.Closeable
+import java.io.File
 import java.io.InputStream
 import java.nio.file.Path
 import java.time.Duration
@@ -109,6 +110,17 @@ class SshConnection internal constructor(
         localDestination.toFile().parentFile.ensureDirectory()
         val scpFileTransfer = ssh.newSCPFileTransfer()
         scpFileTransfer.download(remoteSource, localDestination.toString())
+    }
+
+    /**
+     * Uploads files to a remote system.
+     *
+     * @param localSource Points to the file on the local machine.
+     * @param remoteDestination Points to a destination on a remote machine.
+     */
+    fun upload(localSource: File, remoteDestination: String) {
+        val scpFileTransfer = ssh.newSCPFileTransfer()
+        scpFileTransfer.upload(localSource.absolutePath, remoteDestination)
     }
 
     private fun Session.Command.waitForCompletion(
