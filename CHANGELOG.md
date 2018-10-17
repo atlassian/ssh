@@ -18,6 +18,20 @@ The API consists of all public Kotlin types from `com.atlassian.performance.tool
 ## [Unreleased]
 [Unreleased]: https://bitbucket.org/atlassian/ssh/branches/compare/master%0Drelease-1.2.0
 
+## Removed
+- Remove Kotlin default args from the API for:
+  - `SshConnection.execute`
+  - `SshConnection.safeExecute`
+  Changing `SshConnection` into an interface broke binary compatibility by moving the synthetic `$default` bridge
+  methods from `SshConnection` to `SshConnection.DefaultImpls`, which was caused by the exposed default args.
+  As a consequence, break Kotlin source compatibility due to infeasibility of providing individual overloads for
+  just `stdout` or just `stderr`.
+
+### Added
+- Enable abstraction of `SshConnection` and all of its public methods. Resolve [JPERF-218].
+
+[JPERF-218]: https://ecosystem.atlassian.net/browse/JPERF-218
+
 ## [1.2.0] - 2018-10-24
 [1.2.0]: https://bitbucket.org/atlassian/ssh/branches/compare/release-1.2.0%0Drelease-1.1.0
 
