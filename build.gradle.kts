@@ -6,10 +6,13 @@ plugins {
 }
 
 configurations.all {
-    resolutionStrategy.failOnVersionConflict()
-    resolutionStrategy.eachDependency {
-        when (requested.module.toString()) {
-            "org.slf4j:slf4j-api" -> useVersion("1.8.0-alpha2")
+    resolutionStrategy {
+        activateDependencyLocking()
+        failOnVersionConflict()
+        eachDependency {
+            when (requested.module.toString()) {
+                "org.slf4j:slf4j-api" -> useVersion("1.8.0-alpha2")
+            }
         }
     }
 }
