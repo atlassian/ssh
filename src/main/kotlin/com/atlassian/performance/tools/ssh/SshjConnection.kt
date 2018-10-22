@@ -27,33 +27,6 @@ internal class SshjConnection internal constructor(
     private val logger: Logger = LogManager.getLogger(this::class.java)
 
     override fun execute(
-        cmd: String
-    ): SshResult = execute(
-        cmd = cmd,
-        timeout = Duration.ofSeconds(30)
-    )
-
-    override fun execute(
-        cmd: String,
-        timeout: Duration
-    ): SshResult = execute(
-        cmd = cmd,
-        timeout = timeout,
-        stdout = Level.DEBUG
-    )
-
-    override fun execute(
-        cmd: String,
-        timeout: Duration,
-        stdout: Level
-    ): SshResult = execute(
-        cmd = cmd,
-        timeout = timeout,
-        stdout = stdout,
-        stderr = Level.WARN
-    )
-
-    override fun execute(
         cmd: String,
         timeout: Duration,
         stdout: Level,
@@ -70,33 +43,6 @@ internal class SshjConnection internal constructor(
         }
         return sshResult
     }
-
-    override fun safeExecute(
-        cmd: String
-    ): SshResult = safeExecute(
-        cmd = cmd,
-        timeout = Duration.ofSeconds(30)
-    )
-
-    override fun safeExecute(
-        cmd: String,
-        timeout: Duration
-    ): SshResult = safeExecute(
-        cmd = cmd,
-        timeout = timeout,
-        stdout = Level.TRACE
-    )
-
-    override fun safeExecute(
-        cmd: String,
-        timeout: Duration,
-        stdout: Level
-    ): SshResult = safeExecute(
-        cmd = cmd,
-        timeout = timeout,
-        stdout = stdout,
-        stderr = Level.DEBUG
-    )
 
     override fun safeExecute(
         cmd: String,

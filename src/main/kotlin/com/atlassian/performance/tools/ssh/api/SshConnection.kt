@@ -14,45 +14,69 @@ import java.time.Duration
 interface SshConnection : Closeable {
 
     /**
-     * Executes a remote command. Throws an exception if [cmd] exits with a non-zero code.
+     * Executes [cmd]. Fails if the exit status is non-zero.
+     * Times out after 30 seconds.
+     * Logs standard output at the DEBUG level.
+     * Logs standard errors at the WARN level.
      *
-     * @param cmd Runs within the secure shell on the remote system. For example: `pwd`.
+     * @param [cmd] Runs within the secure shell on the remote system. For example: `pwd`.
      */
+    @JvmDefault
     fun execute(
         cmd: String
-    ): SshResult
+    ): SshResult = execute(
+        cmd = cmd,
+        timeout = Duration.ofSeconds(30),
+        stdout = Level.DEBUG,
+        stderr = Level.WARN
+    )
 
     /**
-     * Executes a remote command. Throws an exception if [cmd] exits with a non-zero code.
+     * Executes [cmd]. Fails if the exit status is non-zero.
+     * Logs standard output at the DEBUG level.
+     * Logs standard errors at the WARN level.
      *
-     * @param cmd Runs within the secure shell on the remote system. For example: `pwd`.
-     * @param timeout Limits the amount of time spent on waiting for [cmd] to finish.
+     * @param [cmd] Runs within the secure shell on the remote system. For example: `pwd`.
+     * @param [timeout] Limits the amount of time spent on waiting for [cmd] to finish.
      */
+    @JvmDefault
     fun execute(
         cmd: String,
         timeout: Duration
-    ): SshResult
+    ): SshResult = execute(
+        cmd = cmd,
+        timeout = timeout,
+        stdout = Level.DEBUG,
+        stderr = Level.WARN
+    )
 
     /**
-     * Executes a remote command. Throws an exception if [cmd] exits with a non-zero code.
+     * Executes [cmd]. Fails if the exit status is non-zero.
+     * Logs standard errors at the WARN level.
      *
-     * @param cmd Runs within the secure shell on the remote system. For example: `pwd`.
-     * @param timeout Limits the amount of time spent on waiting for [cmd] to finish.
-     * @param stdout Controls the log level of [cmd]'s standard output stream.
+     * @param [cmd] Runs within the secure shell on the remote system. For example: `pwd`.
+     * @param [timeout] Limits the amount of time spent on waiting for [cmd] to finish.
+     * @param [stdout] Controls the log level of [cmd]'s standard output stream.
      */
+    @JvmDefault
     fun execute(
         cmd: String,
         timeout: Duration,
         stdout: Level
-    ): SshResult
+    ): SshResult = execute(
+        cmd = cmd,
+        timeout = timeout,
+        stdout = stdout,
+        stderr = Level.WARN
+    )
 
     /**
-     * Executes a remote command. Throws an exception if [cmd] exits with a non-zero code.
+     * Executes [cmd]. Fails if the exit status is non-zero.
      *
-     * @param cmd Runs within the secure shell on the remote system. For example: `pwd`.
-     * @param timeout Limits the amount of time spent on waiting for [cmd] to finish.
-     * @param stdout Controls the log level of [cmd]'s standard output stream.
-     * @param stderr Controls the log level of [cmd]'s standard error stream.
+     * @param [cmd] Runs within the secure shell on the remote system. For example: `pwd`.
+     * @param [timeout] Limits the amount of time spent on waiting for [cmd] to finish.
+     * @param [stdout] Controls the log level of [cmd]'s standard output stream.
+     * @param [stderr] Controls the log level of [cmd]'s standard error stream.
      */
     fun execute(
         cmd: String,
@@ -62,49 +86,69 @@ interface SshConnection : Closeable {
     ): SshResult
 
     /**
-     * Executes remote command.
-     * The command is very similar to [execute], but it will return [SshResult] if [cmd] exits with a non-zero code.
+     * Executes [cmd]. Returns the result regardless of the exit status.
+     * Times out after 30 seconds.
+     * Logs standard output at the TRACE level.
+     * Logs standard errors at the DEBUG level.
      *
-     * @param cmd Runs within the secure shell on the remote system. For example: `pwd`.
+     * @param [cmd] Runs within the secure shell on the remote system. For example: `pwd`.
      */
+    @JvmDefault
     fun safeExecute(
         cmd: String
-    ): SshResult
+    ): SshResult = safeExecute(
+        cmd = cmd,
+        timeout = Duration.ofSeconds(30),
+        stdout = Level.TRACE,
+        stderr = Level.DEBUG
+    )
 
     /**
-     * Executes remote command.
-     * The command is very similar to [execute], but it will return [SshResult] if [cmd] exits with a non-zero code.
+     * Executes [cmd]. Returns the result regardless of the exit status.
+     * Logs standard output at the TRACE level.
+     * Logs standard errors at the DEBUG level.
      *
-     * @param cmd Runs within the secure shell on the remote system. For example: `pwd`.
-     * @param timeout Limits the amount of time spent on waiting for [cmd] to finish
+     * @param [cmd] Runs within the secure shell on the remote system. For example: `pwd`.
+     * @param [timeout] Limits the amount of time spent on waiting for [cmd] to finish.
      */
+    @JvmDefault
     fun safeExecute(
         cmd: String,
         timeout: Duration
-    ): SshResult
+    ): SshResult = safeExecute(
+        cmd = cmd,
+        timeout = timeout,
+        stdout = Level.TRACE,
+        stderr = Level.DEBUG
+    )
 
     /**
-     * Executes remote command.
-     * The command is very similar to [execute], but it will return [SshResult] if [cmd] exits with a non-zero code.
+     * Executes [cmd]. Returns the result regardless of the exit status.
+     * Logs standard errors at the DEBUG level.
      *
-     * @param cmd Runs within the secure shell on the remote system. For example: `pwd`.
-     * @param timeout Limits the amount of time spent on waiting for [cmd] to finish
-     * @param stdout Controls the log level of [cmd]'s standard output stream.
+     * @param [cmd] Runs within the secure shell on the remote system. For example: `pwd`.
+     * @param [timeout] Limits the amount of time spent on waiting for [cmd] to finish.
+     * @param [stdout] Controls the log level of [cmd]'s standard output stream.
      */
+    @JvmDefault
     fun safeExecute(
         cmd: String,
         timeout: Duration,
         stdout: Level
-    ): SshResult
+    ): SshResult = safeExecute(
+        cmd = cmd,
+        timeout = timeout,
+        stdout = stdout,
+        stderr = Level.DEBUG
+    )
 
     /**
-     * Executes remote command.
-     * The command is very similar to [execute], but it will return [SshResult] if [cmd] exits with a non-zero code.
+     * Executes [cmd]. Returns the result regardless of the exit status.
      *
-     * @param cmd Runs within the secure shell on the remote system. For example: `pwd`.
-     * @param timeout Limits the amount of time spent on waiting for [cmd] to finish
-     * @param stdout Controls the log level of [cmd]'s standard output stream.
-     * @param stderr Controls the log level of [cmd]'s standard error stream.
+     * @param [cmd] Runs within the secure shell on the remote system. For example: `pwd`.
+     * @param [timeout] Limits the amount of time spent on waiting for [cmd] to finish.
+     * @param [stdout] Controls the log level of [cmd]'s standard output stream.
+     * @param [stderr] Controls the log level of [cmd]'s standard error stream.
      */
     fun safeExecute(
         cmd: String,
