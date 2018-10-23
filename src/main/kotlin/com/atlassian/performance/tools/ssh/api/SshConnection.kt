@@ -52,26 +52,6 @@ interface SshConnection : Closeable {
 
     /**
      * Executes [cmd]. Fails if the exit status is non-zero.
-     * Logs standard errors at the WARN level.
-     *
-     * @param [cmd] Runs within the secure shell on the remote system. For example: `pwd`.
-     * @param [timeout] Limits the amount of time spent on waiting for [cmd] to finish.
-     * @param [stdout] Controls the log level of [cmd]'s standard output stream.
-     */
-    @JvmDefault
-    fun execute(
-        cmd: String,
-        timeout: Duration,
-        stdout: Level
-    ): SshResult = execute(
-        cmd = cmd,
-        timeout = timeout,
-        stdout = stdout,
-        stderr = Level.WARN
-    )
-
-    /**
-     * Executes [cmd]. Fails if the exit status is non-zero.
      *
      * @param [cmd] Runs within the secure shell on the remote system. For example: `pwd`.
      * @param [timeout] Limits the amount of time spent on waiting for [cmd] to finish.
@@ -119,26 +99,6 @@ interface SshConnection : Closeable {
         cmd = cmd,
         timeout = timeout,
         stdout = Level.TRACE,
-        stderr = Level.DEBUG
-    )
-
-    /**
-     * Executes [cmd]. Returns the result regardless of the exit status.
-     * Logs standard errors at the DEBUG level.
-     *
-     * @param [cmd] Runs within the secure shell on the remote system. For example: `pwd`.
-     * @param [timeout] Limits the amount of time spent on waiting for [cmd] to finish.
-     * @param [stdout] Controls the log level of [cmd]'s standard output stream.
-     */
-    @JvmDefault
-    fun safeExecute(
-        cmd: String,
-        timeout: Duration,
-        stdout: Level
-    ): SshResult = safeExecute(
-        cmd = cmd,
-        timeout = timeout,
-        stdout = stdout,
         stderr = Level.DEBUG
     )
 
