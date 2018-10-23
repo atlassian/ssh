@@ -26,6 +26,7 @@ The API consists of all public Kotlin types from `com.atlassian.performance.tool
   methods from `SshConnection` to `SshConnection.DefaultImpls`, which was caused by the exposed default args.
   As a consequence, break Kotlin source compatibility due to infeasibility of providing individual overloads for
   just `stdout` or just `stderr`.
+- Remove default args from the `Ssh` constructor.
 
 ### Added
 - Enable abstraction of `SshConnection` and all of its public methods. Resolve [JPERF-218].

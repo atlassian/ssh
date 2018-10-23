@@ -10,12 +10,24 @@ import java.time.Duration
  * Connects to [host] via SSH.
  *
  * @param host remote SSH server we're connecting to.
- * @param connectivityPatience how many times we're going to try to connect to the server. Defaults to 4.
+ * @param connectivityPatience how many times we're going to try to connect to the server.
  */
-data class Ssh @JvmOverloads constructor(
+data class Ssh(
     val host: SshHost,
-    private val connectivityPatience: Int = 4
+    private val connectivityPatience: Int
 ) {
+
+    /**
+     * Connects to [host] via SSH with up to 4 retries.
+     *
+     * @param host remote SSH server we're connecting to.
+     */
+    constructor(
+        host: SshHost
+    ) : this(
+        host = host,
+        connectivityPatience = 4
+    )
 
     /**
      * Connects to [host].
