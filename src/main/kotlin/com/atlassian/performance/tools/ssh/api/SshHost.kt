@@ -15,12 +15,25 @@ import javax.json.JsonObject
 data class SshHost(
     val ipAddress: String,
     val userName: String,
-    val key: Path
+    val key: Path,
+    val port: Int
 ) {
     constructor(json: JsonObject) : this(
         ipAddress = json.getString("ipAddress"),
         userName = json.getString("userName"),
-        key = Paths.get(json.getString("key"))
+        key = Paths.get(json.getString("key")),
+        port = 22
+    )
+
+    constructor(
+        ipAddress: String,
+        userName: String,
+        key: Path
+    ) : this(
+        ipAddress = ipAddress,
+        userName = userName,
+        key = key,
+        port = 22
     )
 
     fun toJson(): JsonObject {

@@ -41,12 +41,17 @@ data class Ssh @JvmOverloads constructor(
         ssh: SSHClient
     ) {
         val address = host.ipAddress
-        IdempotentAction("connect to $address") { ssh.connect(address) }
-            .retry(
-                maxAttempts = connectivityPatience,
-                backoff = ExponentialBackoff(
-                    baseBackoff = Duration.ofSeconds(1)
-                )
+        val port = host.port
+        IdempotentAction("connect to $address on port $port") {
+            ssh.connect(
+                address,
+                port
             )
+        }.retry(
+            maxAttempts = connectivityPatience,
+            backoff = ExponentialBackoff(
+                baseBackoff = Duration.ofSeconds(1)
+            )
+        )
     }
 }
