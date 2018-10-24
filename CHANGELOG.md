@@ -16,7 +16,10 @@ The API consists of all public Kotlin types from `com.atlassian.performance.tool
 [behavioral compatibility]: http://cr.openjdk.java.net/~darcy/OpenJdkDevGuide/OpenJdkDevelopersGuide.v0.777.html#behavioral_compatibility
 
 ## [Unreleased]
-[Unreleased]: https://bitbucket.org/atlassian/ssh/branches/compare/master%0Drelease-1.1.0
+[Unreleased]: https://bitbucket.org/atlassian/ssh/branches/compare/master%0Drelease-1.2.0
+
+## [1.2.0] - 2018-10-24
+[1.2.0]: https://bitbucket.org/atlassian/ssh/branches/compare/release-1.2.0%0Drelease-1.1.0
 
 ### Added
 - Support custom ssh ports which resolves [JPERF-233].
