@@ -46,7 +46,7 @@ data class Ssh(
         ssh.connection.keepAlive.keepAliveInterval = 60
         ssh.addHostKeyVerifier { _, _, _ -> true }
         waitForConnectivity(ssh)
-        ssh.authPublickey(host.userName, host.key.toString())
+        host.authentication.authenticate(host.userName, ssh)
         return ssh
     }
 

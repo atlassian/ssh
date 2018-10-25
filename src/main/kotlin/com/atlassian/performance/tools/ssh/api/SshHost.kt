@@ -1,7 +1,8 @@
 package com.atlassian.performance.tools.ssh.api
 
+import com.atlassian.performance.tools.ssh.api.auth.PublicKeyAuthentication
+import com.atlassian.performance.tools.ssh.api.auth.SshAuthentication
 import java.nio.file.Path
-import java.nio.file.Paths
 import javax.json.Json
 import javax.json.JsonObject
 
@@ -10,19 +11,35 @@ import javax.json.JsonObject
  *
  * @param ipAddress IP of the remote system.
  * @param userName User allowed to connect to the remote server.
- * @param key Private SSH key that authenticates the user.
+ * @param authentication Private SSH authentication method for the user.
+ * @param port Port of the remote system.
  */
 data class SshHost(
     val ipAddress: String,
     val userName: String,
-    val key: Path,
+    val authentication: SshAuthentication,
     val port: Int
 ) {
     constructor(json: JsonObject) : this(
         ipAddress = json.getString("ipAddress"),
         userName = json.getString("userName"),
-        key = Paths.get(json.getString("key")),
-        port = 22
+        authentication = SshAuthentication.fromJson(json.getJsonObject("authentication")),
+        port = json.getInt("port")
+    )
+
+    @Deprecated(
+        message = "Use the primary constructor"
+    )
+    constructor(
+        ipAddress: String,
+        userName: String,
+        key: Path,
+        port: Int
+    ) : this(
+        ipAddress = ipAddress,
+        userName = userName,
+        authentication = PublicKeyAuthentication(key),
+        port = port
     )
 
     constructor(
@@ -32,15 +49,25 @@ data class SshHost(
     ) : this(
         ipAddress = ipAddress,
         userName = userName,
-        key = key,
+        authentication = PublicKeyAuthentication(key),
         port = 22
     )
+
+    val key: Path
+        get() {
+            if (authentication is PublicKeyAuthentication) {
+                return authentication.key
+            } else {
+                throw Exception("The authentication used by this host does not use public key auth.")
+            }
+        }
 
     fun toJson(): JsonObject {
         return Json.createObjectBuilder()
             .add("ipAddress", ipAddress)
             .add("userName", userName)
-            .add("key", key.toAbsolutePath().toString())
+            .add("port", port)
+            .add("authentication", authentication.toJson())
             .build()
     }
 }
