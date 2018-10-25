@@ -18,5 +18,5 @@ org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.2.70
 org.jetbrains.kotlin:kotlin-stdlib-jre7:1.2.70
 org.jetbrains.kotlin:kotlin-stdlib-jre8:1.2.70
 org.jetbrains.kotlin:kotlin-stdlib:1.2.70
-org.jetbrains:annotations:13.0
+org.jetbrains:annotations:15.0
 org.slf4j:slf4j-api:1.8.0-alpha2

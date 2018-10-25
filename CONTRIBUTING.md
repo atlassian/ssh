@@ -7,7 +7,7 @@ All the changes are welcome. Please help us to improve code, examples and docume
     
 ## Developer’s environment
 
-You can build and run JPT on MacOS, Windows or Linux. You'll need JDK 8-11 to build and test the project.
+You can build and run JPT on MacOS, Windows or Linux. You'll need JDK 8-11 and docker 1.6+ to build and test the project.
 
 ## Submitting changes
  

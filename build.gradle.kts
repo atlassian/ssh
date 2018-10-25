@@ -14,6 +14,7 @@ configurations.all {
         eachDependency {
             when (requested.module.toString()) {
                 "org.slf4j:slf4j-api" -> useVersion("1.8.0-alpha2")
+                "org.jetbrains:annotations" -> useVersion("15.0")
             }
             when (requested.group) {
                 "org.jetbrains.kotlin" -> useVersion(kotlinVersion)
@@ -34,6 +35,7 @@ dependencies {
         "slf4j-impl"
     ).forEach { compile("org.apache.logging.log4j:log4j-$it:2.10.0") }
     testCompile("junit:junit:4.12")
+    testCompile("org.testcontainers:testcontainers:1.9.1")
 }
 
 tasks
