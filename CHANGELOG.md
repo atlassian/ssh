@@ -16,9 +16,12 @@ The API consists of all public Kotlin types from `com.atlassian.performance.tool
 [behavioral compatibility]: http://cr.openjdk.java.net/~darcy/OpenJdkDevGuide/OpenJdkDevelopersGuide.v0.777.html#behavioral_compatibility
 
 ## [Unreleased]
-[Unreleased]: https://bitbucket.org/atlassian/ssh/branches/compare/master%0Drelease-1.2.0
+[Unreleased]: https://bitbucket.org/atlassian/ssh/branches/compare/master%0Drelease-2.0.0
 
-## Removed
+## [2.0.0] - 2018-10-26
+[2.0.0]: https://bitbucket.org/atlassian/ssh/branches/compare/release-2.0.0%0Drelease-1.2.0
+
+### Removed
 - Remove Kotlin default args from the API for:
   - `SshConnection.execute`
   - `SshConnection.safeExecute`
@@ -29,7 +32,7 @@ The API consists of all public Kotlin types from `com.atlassian.performance.tool
 - Remove default args from the `Ssh` constructor.
 
 ### Added
-- Enable abstraction of `SshConnection` and all of its public methods. Resolve [JPERF-218].
+- Enable abstraction of `SshConnection` and all of its public methods, enabling mocking. Resolve [JPERF-218].
 
 [JPERF-218]: https://ecosystem.atlassian.net/browse/JPERF-218
 
