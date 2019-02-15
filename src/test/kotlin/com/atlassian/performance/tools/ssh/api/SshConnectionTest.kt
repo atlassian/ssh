@@ -7,7 +7,7 @@ class SshConnectionTest {
 
     @Test
     fun shouldRunCommandOverSsh() {
-        SshContainer().run { ssh: SshConnection ->
+        SshContainer().useConnection { ssh: SshConnection ->
             val sshResult = ssh.safeExecute("echo test")
 
             Assert.assertTrue(sshResult.isSuccessful())

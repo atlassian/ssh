@@ -3,6 +3,8 @@ package com.atlassian.performance.tools.ssh.api
 import com.atlassian.performance.tools.jvmtasks.api.ExponentialBackoff
 import com.atlassian.performance.tools.jvmtasks.api.IdempotentAction
 import com.atlassian.performance.tools.ssh.SshjConnection
+import com.atlassian.performance.tools.ssh.port.LocalPort
+import com.atlassian.performance.tools.ssh.port.RemotePort
 import net.schmizz.sshj.SSHClient
 import java.time.Duration
 
@@ -39,6 +41,38 @@ data class Ssh(
             prepareClient(),
             host.userName
         )
+    }
+
+    /**
+     * Creates an encrypted connection between a local machine and a remote machine through which you can relay traffic.
+     *
+     * See https://www.ssh.com/ssh/tunneling/example#sec-What-Is-SSH-Port-Forwarding-aka-SSH-Tunneling.
+     *
+     * Listen for connections on local machine and [localPort].
+     * Forwards all the traffic to a remote machine and [remotePort].
+     *
+     * @param localPort port on the local host.
+     * @param remotePort localPort on a remote machine.
+     * @since 2.2.0
+     */
+    fun forwardLocalPort(localPort: Int, remotePort: Int): AutoCloseable {
+        return LocalPort.create(localPort).forward(prepareClient(), remotePort)
+    }
+
+    /**
+     * Creates an encrypted connection between a local machine and a remote machine through which you can relay traffic.
+     *
+     * See https://www.ssh.com/ssh/tunneling/example#sec-What-Is-SSH-Port-Forwarding-aka-SSH-Tunneling.
+     *
+     * Listen for connections on remote machine and [remotePort].
+     * Forwards all the traffic to a local machine and [localPort].
+     *
+     * @param localPort port on the local host.
+     * @param remotePort port on a remote machine.
+     * @since 2.2.0
+     */
+    fun forwardRemotePort(localPort: Int, remotePort: Int): AutoCloseable {
+        return RemotePort.create(remotePort).forward(prepareClient(), localPort)
     }
 
     private fun prepareClient(): SSHClient {
