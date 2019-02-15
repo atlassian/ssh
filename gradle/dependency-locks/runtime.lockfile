@@ -1,7 +1,7 @@
 # This is a Gradle generated file for dependency locking.
 # Manual edits can break the build and are not advised.
 # This file is expected to be part of source control.
-com.atlassian.performance.tools:io:1.1.0
+com.atlassian.performance.tools:io:1.2.0
 com.atlassian.performance.tools:jvm-tasks:1.0.0
 com.hierynomus:sshj:0.23.0
 com.jcraft:jzlib:1.1.3
