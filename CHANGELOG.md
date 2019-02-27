@@ -16,14 +16,14 @@ The API consists of all public Kotlin types from `com.atlassian.performance.tool
 [behavioral compatibility]: http://cr.openjdk.java.net/~darcy/OpenJdkDevGuide/OpenJdkDevelopersGuide.v0.777.html#behavioral_compatibility
 
 ## [Unreleased]
-[Unreleased]: https://bitbucket.org/atlassian/ssh/branches/compare/master%0Drelease-2.1.0
+[Unreleased]: https://github.com/atlassian/ssh/compare/release-2.1.0...master
 
 ### Added
 - Support local port forwarding.
 - Support remote port forwarding.
 
 ## [2.1.0] - 2018-10-26
-[2.1.0]: https://bitbucket.org/atlassian/ssh/branches/compare/release-2.1.0%0Drelease-2.0.0
+[2.1.0]: https://github.com/atlassian/ssh/compare/release-2.0.0...release-2.1.0
 
 ### Added
 - Support password authentication which resolves JPERF-237
@@ -31,7 +31,7 @@ The API consists of all public Kotlin types from `com.atlassian.performance.tool
 [JPERF-237]: https://ecosystem.atlassian.net/browse/JPERF-237
 
 ## [2.0.0] - 2018-10-26
-[2.0.0]: https://bitbucket.org/atlassian/ssh/branches/compare/release-2.0.0%0Drelease-1.2.0
+[2.0.0]: https://github.com/atlassian/ssh/compare/release-1.2.0...release-2.0.0
 
 ### Removed
 - Remove Kotlin default args from the API for:
@@ -49,7 +49,7 @@ The API consists of all public Kotlin types from `com.atlassian.performance.tool
 [JPERF-218]: https://ecosystem.atlassian.net/browse/JPERF-218
 
 ## [1.2.0] - 2018-10-24
-[1.2.0]: https://bitbucket.org/atlassian/ssh/branches/compare/release-1.2.0%0Drelease-1.1.0
+[1.2.0]: https://github.com/atlassian/ssh/compare/release-1.1.0...release-1.2.0
 
 ### Added
 - Support custom ssh ports which resolves [JPERF-233].
@@ -57,13 +57,13 @@ The API consists of all public Kotlin types from `com.atlassian.performance.tool
 [JPERF-233]: https://ecosystem.atlassian.net/browse/JPERF-233
 
 ## [1.1.0] - 2018-09-21
-[1.1.0]: https://bitbucket.org/atlassian/ssh/branches/compare/release-1.1.0%0Drelease-1.0.0
+[1.1.0]: https://github.com/atlassian/ssh/compare/release-1.0.0...release-1.1.0
 
 ### Added
 - Support uploading via SSH.
 
 ## [1.0.0] - 2018-08-30
-[1.0.0]: https://bitbucket.org/atlassian/ssh/branches/compare/release-1.0.0%0Drelease-0.1.0
+[1.0.0]: https://github.com/atlassian/ssh/compare/release-0.1.0...release-1.0.0
 
 ### Changed
 - Define the public API.
@@ -72,7 +72,7 @@ The API consists of all public Kotlin types from `com.atlassian.performance.tool
 - License.
 
 ## [0.1.0] - 2018-08-02
-[0.1.0]: https://bitbucket.org/atlassian/ssh/branches/compare/release-0.1.0%0Dinitial-commit
+[0.1.0]: https://github.com/atlassian/ssh/compare/initial-commit...release-0.1.0
 
 ### Added
 - Migrate SSH from [JPT submodule].
