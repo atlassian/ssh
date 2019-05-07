@@ -18,6 +18,11 @@ The API consists of all public Kotlin types from `com.atlassian.performance.tool
 ## [Unreleased]
 [Unreleased]: https://github.com/atlassian/ssh/compare/release-2.2.0...master
 
+### Added
+- Expose the SSH host via SSH connection. Unblock [JPERF-478].
+
+[JPERF-478]: https://ecosystem.atlassian.net/browse/JPERF-478
+
 ## [2.2.0] - 2019-02-27
 [2.2.0]: https://github.com/atlassian/ssh/compare/release-2.1.0...release-2.2.0
 

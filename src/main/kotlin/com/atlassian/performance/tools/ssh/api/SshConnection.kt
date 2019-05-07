@@ -154,6 +154,12 @@ interface SshConnection : Closeable {
     )
 
     /**
+     * @since 2.3.0
+     */
+    @JvmDefault
+    fun getHost(): SshHost = throw Exception("Not implemented")
+
+    /**
      * Holds results of a SSH command.
      *
      * @param exitStatus Holds exit code from a remotely executed SSH command.
