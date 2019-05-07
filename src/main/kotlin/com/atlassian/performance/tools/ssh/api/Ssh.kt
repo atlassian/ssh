@@ -39,7 +39,7 @@ data class Ssh(
     fun newConnection(): SshConnection {
         return SshjConnection(
             prepareClient(),
-            host.userName
+            host
         )
     }
 

@@ -4,6 +4,7 @@ import com.atlassian.performance.tools.io.api.ensureDirectory
 import com.atlassian.performance.tools.ssh.api.DetachedProcess
 import com.atlassian.performance.tools.ssh.api.SshConnection
 import com.atlassian.performance.tools.ssh.api.SshConnection.SshResult
+import com.atlassian.performance.tools.ssh.api.SshHost
 import net.schmizz.sshj.SSHClient
 import net.schmizz.sshj.connection.channel.direct.Session
 import org.apache.logging.log4j.Level
@@ -21,7 +22,7 @@ import java.util.concurrent.TimeUnit
  */
 internal class SshjConnection internal constructor(
     private val ssh: SSHClient,
-    private val username: String
+    private val sshHost: SshHost
 ) : SshConnection {
 
     private val logger: Logger = LogManager.getLogger(this::class.java)
@@ -60,7 +61,7 @@ internal class SshjConnection internal constructor(
         stdout: Level,
         stderr: Level
     ): SshResult {
-        logger.debug("$username$ $cmd")
+        logger.debug("${sshHost.userName}$ $cmd")
         return session.exec(cmd).use { command ->
             command.waitForCompletion(cmd, timeout)
             SshResult(
@@ -136,6 +137,8 @@ internal class SshjConnection internal constructor(
         }
         return output
     }
+
+    override fun getHost(): SshHost = sshHost
 
     override fun close() {
         ssh.close()
