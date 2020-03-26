@@ -14,8 +14,8 @@ internal class SshContainer {
         }
     }
 
-    internal fun useSsh(action: (ssh: Ssh) -> Unit) {
-        SshUbuntuContainer().start().use { sshUbuntu ->
+    internal fun <T> useSsh(action: (ssh: Ssh) -> T): T {
+        return SshUbuntuContainer().start().use { sshUbuntu ->
             action(Ssh(sshUbuntu.ssh.toSshHost()))
         }
     }
