@@ -35,6 +35,7 @@ dependencies {
         "slf4j-impl"
     ).forEach { compile("org.apache.logging.log4j:log4j-$it:2.10.0") }
     testCompile("junit:junit:4.12")
+    testImplementation("org.assertj:assertj-core:3.15.0")
     testCompile("com.atlassian.performance.tools:ssh-ubuntu:0.1.0")
 }
 

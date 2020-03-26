@@ -4,7 +4,7 @@ import com.atlassian.performance.tools.ssh.api.Ssh
 import com.atlassian.performance.tools.ssh.api.SshContainer
 import com.atlassian.performance.tools.ssh.api.SshHost
 import com.atlassian.performance.tools.ssh.api.auth.PublicKeyAuthentication
-import org.junit.Assert
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
 class LocalPortTest {
@@ -27,7 +27,7 @@ class LocalPortTest {
                 ).newConnection()
                     .use { it.execute("echo test") }
 
-                Assert.assertEquals(true, result.isSuccessful())
+                assertThat(result.isSuccessful()).isTrue()
             }
         }
     }

@@ -2,7 +2,7 @@ package com.atlassian.performance.tools.ssh.api
 
 import com.atlassian.performance.tools.ssh.api.auth.PasswordAuthentication
 import com.atlassian.performance.tools.ssh.api.auth.PublicKeyAuthentication
-import org.junit.Assert
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import java.nio.file.Paths
 
@@ -19,7 +19,7 @@ class SshHostTest {
 
         val sshHostFromJson = SshHost(sshHost.toJson())
 
-        Assert.assertEquals(sshHost, sshHostFromJson)
+        assertThat(sshHost).isEqualTo(sshHostFromJson)
     }
 
     @Test
@@ -33,6 +33,6 @@ class SshHostTest {
 
         val sshHostFromJson = SshHost(sshHost.toJson())
 
-        Assert.assertEquals(sshHost, sshHostFromJson)
+        assertThat(sshHost).isEqualTo(sshHostFromJson)
     }
 }

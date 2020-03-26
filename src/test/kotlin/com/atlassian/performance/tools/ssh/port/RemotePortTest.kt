@@ -1,13 +1,13 @@
 package com.atlassian.performance.tools.ssh.port
 
+import com.atlassian.performance.tools.ssh.api.SshContainer
 import com.sun.net.httpserver.HttpHandler
 import com.sun.net.httpserver.HttpServer
-import org.junit.Assert
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import java.net.InetSocketAddress
 import java.util.concurrent.Executor
 import kotlin.concurrent.thread
-import com.atlassian.performance.tools.ssh.api.SshContainer
 
 class RemotePortTest {
 
@@ -41,8 +41,8 @@ class RemotePortTest {
                         it.execute("""wget -q -O - localhost:$remotePort/""")
                     }
 
-                Assert.assertEquals(true, result.isSuccessful())
-                Assert.assertEquals(message, result.output)
+                assertThat(result.isSuccessful()).isTrue()
+                assertThat(result.output).isEqualTo(message)
             }
 
         }
