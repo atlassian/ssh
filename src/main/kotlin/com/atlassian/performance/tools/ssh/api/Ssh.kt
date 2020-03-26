@@ -2,6 +2,7 @@ package com.atlassian.performance.tools.ssh.api
 
 import com.atlassian.performance.tools.jvmtasks.api.ExponentialBackoff
 import com.atlassian.performance.tools.jvmtasks.api.IdempotentAction
+import com.atlassian.performance.tools.ssh.PerformanceDefaultConfig
 import com.atlassian.performance.tools.ssh.SshjConnection
 import com.atlassian.performance.tools.ssh.port.LocalPort
 import com.atlassian.performance.tools.ssh.port.RemotePort
@@ -76,7 +77,7 @@ data class Ssh(
     }
 
     private fun prepareClient(): SSHClient {
-        val ssh = SSHClient()
+        val ssh = SSHClient(PerformanceDefaultConfig())
         ssh.connection.keepAlive.keepAliveInterval = 60
         ssh.addHostKeyVerifier { _, _, _ -> true }
         waitForConnectivity(ssh)
