@@ -16,7 +16,11 @@ The API consists of all public Kotlin types from `com.atlassian.performance.tool
 [behavioral compatibility]: http://cr.openjdk.java.net/~darcy/OpenJdkDevGuide/OpenJdkDevelopersGuide.v0.777.html#behavioral_compatibility
 
 ## [Unreleased]
-[Unreleased]: https://github.com/atlassian/ssh/compare/release-2.3.0...master
+[Unreleased]: https://github.com/atlassian/ssh/compare/release-2.3.1...master
+
+## [2.3.1] - 2020-04-06
+[2.3.1]: https://github.com/atlassian/ssh/compare/release-2.3.0...release-2.3.1
+
 ### Fixed
 - Random number generator is now reused between SSH sessions [JPERF-617].
 
