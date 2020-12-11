@@ -18,6 +18,11 @@ The API consists of all public Kotlin types from `com.atlassian.performance.tool
 ## [Unreleased]
 [Unreleased]: https://github.com/atlassian/ssh/compare/release-2.3.1...master
 
+### Added
+- Add `Ssh.runInBackground`, which yields `SshResult`s unlike the old `SshConnection.startProcess`. Resolve [JPERF-716].
+
+[JPERF-716]: https://ecosystem.atlassian.net/browse/JPERF-716
+
 ## [2.3.1] - 2020-04-06
 [2.3.1]: https://github.com/atlassian/ssh/compare/release-2.3.0...release-2.3.1
 

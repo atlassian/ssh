@@ -3,6 +3,7 @@ package com.atlassian.performance.tools.ssh.api
 import com.atlassian.performance.tools.jvmtasks.api.ExponentialBackoff
 import com.atlassian.performance.tools.jvmtasks.api.IdempotentAction
 import com.atlassian.performance.tools.ssh.PerformanceDefaultConfig
+import com.atlassian.performance.tools.ssh.SshjBackgroundProcess
 import com.atlassian.performance.tools.ssh.SshjConnection
 import com.atlassian.performance.tools.ssh.port.LocalPort
 import com.atlassian.performance.tools.ssh.port.RemotePort
@@ -42,6 +43,18 @@ data class Ssh(
             prepareClient(),
             host
         )
+    }
+
+    /**
+     * Runs [cmd] in the background, without waiting for its completion. The returned process can be stopped later.
+     *
+     * @since 2.4.0
+     */
+    fun runInBackground(cmd: String): BackgroundProcess {
+        val session = prepareClient().startSession()
+        session.allocateDefaultPTY()
+        val command = session.exec(cmd)
+        return SshjBackgroundProcess(session, command)
     }
 
     /**
