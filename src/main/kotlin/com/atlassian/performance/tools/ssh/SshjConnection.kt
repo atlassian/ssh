@@ -64,10 +64,12 @@ internal class SshjConnection internal constructor(
         }
     }
 
+    @Suppress("DEPRECATION", "OverridingDeprecatedMember") // used in public API, can only remove in a MAJOR release
     override fun startProcess(cmd: String): DetachedProcess {
         return ssh.startSession().use { DetachedProcess.start(cmd, it) }
     }
 
+    @Suppress("DEPRECATION", "OverridingDeprecatedMember") // used in public API, can only remove in a MAJOR release
     override fun stopProcess(process: DetachedProcess) {
         ssh.startSession().use { process.stop(it) }
     }

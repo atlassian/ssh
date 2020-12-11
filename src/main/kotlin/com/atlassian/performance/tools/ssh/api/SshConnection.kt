@@ -120,6 +120,7 @@ interface SshConnection : Closeable {
     /**
      * Starts a [DetachedProcess]. You can use [stopProcess] to stop it later.
      */
+    @Deprecated(message = "Use Ssh.runInBackground instead")
     fun startProcess(
         cmd: String
     ): DetachedProcess
@@ -127,6 +128,7 @@ interface SshConnection : Closeable {
     /**
      * Stops a [DetachedProcess].
      */
+    @Deprecated(message = "Use BackgroundProcess.stop instead")
     fun stopProcess(
         process: DetachedProcess
     )
