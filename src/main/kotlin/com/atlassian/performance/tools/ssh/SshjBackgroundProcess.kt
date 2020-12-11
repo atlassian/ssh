@@ -4,6 +4,7 @@ import com.atlassian.performance.tools.ssh.api.BackgroundProcess
 import com.atlassian.performance.tools.ssh.api.SshConnection
 import net.schmizz.sshj.connection.channel.direct.Session
 import org.apache.logging.log4j.Level
+import org.apache.logging.log4j.LogManager
 import java.time.Duration
 import java.util.concurrent.atomic.AtomicBoolean
 
@@ -15,10 +16,18 @@ internal class SshjBackgroundProcess(
     private var closed = AtomicBoolean(false)
 
     override fun stop(timeout: Duration): SshConnection.SshResult {
-        sendSigint()
+        tryToInterrupt()
         val result = WaitingCommand(command, timeout, Level.DEBUG, Level.DEBUG).waitForResult()
         close()
         return result
+    }
+
+    private fun tryToInterrupt() {
+        try {
+            sendSigint()
+        } catch (e: Exception) {
+            LOG.debug("cannot interrupt, if the command doesn't run anymore, then the write connection is closed", e)
+        }
     }
 
     /**
@@ -37,5 +46,9 @@ internal class SshjBackgroundProcess(
             command.use {}
             session.use {}
         }
+    }
+
+    private companion object {
+        private val LOG = LogManager.getLogger(this::class.java)
     }
 }

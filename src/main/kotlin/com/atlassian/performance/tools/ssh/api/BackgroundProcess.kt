@@ -11,6 +11,7 @@ interface BackgroundProcess : AutoCloseable {
 
     /**
      * Interrupts the process, then waits up to [timeout] for its completion.
+     * Skips the interrupt if the process is already finished.
      * Throws if getting the [SshConnection.SshResult] fails.
      * Closes the open resources.
      *
