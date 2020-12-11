@@ -49,6 +49,18 @@ class SshTest {
         }
     }
 
+    @Test
+    fun shouldTolerateEarlyFinish() {
+        SshContainer().useSsh { sshHost ->
+            installPing(sshHost)
+
+            val fail = sshHost.runInBackground("nonexistent-command")
+            val failResult = fail.stop(Duration.ofMillis(20))
+
+            Assert.assertEquals(127, failResult.exitStatus)
+        }
+    }
+
     private fun installPing(sshHost: Ssh) {
         sshHost.newConnection().use { it.execute("apt-get update -qq && apt-get install iputils-ping -y") }
     }
