@@ -11,11 +11,8 @@ import org.apache.logging.log4j.Level
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import java.io.File
-import java.io.InputStream
 import java.nio.file.Path
 import java.time.Duration
-import java.time.Instant
-import java.util.concurrent.TimeUnit
 
 /**
  * An [SshConnection] based on the [SSHJ library](https://github.com/hierynomus/sshj).
@@ -63,12 +60,7 @@ internal class SshjConnection internal constructor(
     ): SshResult {
         logger.debug("${sshHost.userName}$ $cmd")
         return session.exec(cmd).use { command ->
-            command.waitForCompletion(cmd, timeout)
-            SshResult(
-                exitStatus = command.exitStatus,
-                output = command.inputStream.readAndLog(stdout),
-                errorOutput = command.errorStream.readAndLog(stderr)
-            )
+            WaitingCommand(command, timeout, stdout, stderr).waitForResult()
         }
     }
 
@@ -91,62 +83,9 @@ internal class SshjConnection internal constructor(
         scpFileTransfer.upload(localSource.absolutePath, remoteDestination)
     }
 
-    private fun Session.Command.waitForCompletion(
-        cmd: String,
-        timeout: Duration
-    ) {
-        val expectedEnd = Instant.now().plus(timeout)
-        val extendedTime = timeout.multipliedBy(5).dividedBy(4)
-        try {
-            this.join(extendedTime.toMillis(), TimeUnit.MILLISECONDS)
-        } catch (e: Exception) {
-            val output = readOutput(cmd)
-            throw Exception("SSH command failed to finish in extended time ($extendedTime): $output", e)
-        }
-        val actualEnd = Instant.now()
-        if (actualEnd.isAfter(expectedEnd)) {
-            val overtime = Duration.between(expectedEnd, actualEnd)
-            throw Exception("SSH command exceeded timeout $timeout by $overtime: '$cmd'")
-        }
-    }
-
-    private fun Session.Command.readOutput(
-        cmd: String
-    ): SshExecutedCommand {
-        return try {
-            this.close()
-            SshExecutedCommand(
-                cmd = cmd,
-                stdout = this.inputStream.reader().use { it.readText() },
-                stderr = this.errorStream.reader().use { it.readText() }
-            )
-        } catch (e: Exception) {
-            logger.error("Failed do close ssh channel. Can't get command output", e)
-            SshExecutedCommand(
-                cmd = cmd,
-                stdout = "<couldn't get command stdout>",
-                stderr = "<couldn't get command stderr>"
-            )
-        }
-    }
-
-    private fun InputStream.readAndLog(level: Level): String {
-        val output = this.reader().use { it.readText() }
-        if (output.isNotBlank()) {
-            logger.log(level, output)
-        }
-        return output
-    }
-
     override fun getHost(): SshHost = sshHost
 
     override fun close() {
         ssh.close()
     }
-
-    private data class SshExecutedCommand(
-        val cmd: String,
-        val stdout: String,
-        val stderr: String
-    )
 }
