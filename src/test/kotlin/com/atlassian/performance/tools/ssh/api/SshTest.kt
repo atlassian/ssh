@@ -13,9 +13,11 @@ class SshTest {
             installPing(sshHost)
 
             val ping = sshHost.newConnection().use { ssh ->
+                @Suppress("DEPRECATION") // tests public API
                 ssh.startProcess("ping localhost")
             }
             sshHost.newConnection().use { ssh ->
+                @Suppress("DEPRECATION") // tests public API
                 ssh.stopProcess(ping)
             }
         }

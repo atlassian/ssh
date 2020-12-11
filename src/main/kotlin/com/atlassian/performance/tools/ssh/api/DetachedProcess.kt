@@ -11,6 +11,7 @@ import java.util.concurrent.TimeUnit
  *
  * @see [SshConnection.stopProcess]
  */
+@Deprecated(message = "Use BackgroundProcess instead")
 class DetachedProcess private constructor(
     private val cmd: String,
     private val uuid: UUID
@@ -26,6 +27,7 @@ class DetachedProcess private constructor(
             logger.debug("Starting process $uuid $cmd")
             session.exec("screen -dm bash -c '${savePID(uuid)} && $cmd'")
                 .use { command -> command.join(15, TimeUnit.SECONDS) }
+            @Suppress("DEPRECATION") // used transitively by public API
             return DetachedProcess(cmd, uuid)
         }
 
