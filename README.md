@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/atlassian/ssh.svg?branch=master)](https://travis-ci.com/atlassian/ssh)
+![CI](https://github.com/atlassian/ssh/workflows/CI/badge.svg)
 
 ## SSH
 You can use SSH lib to connect with an SSH server and execute remote commands. 
