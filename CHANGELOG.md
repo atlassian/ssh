@@ -16,7 +16,10 @@ The API consists of all public Kotlin types from `com.atlassian.performance.tool
 [behavioral compatibility]: http://cr.openjdk.java.net/~darcy/OpenJdkDevGuide/OpenJdkDevelopersGuide.v0.777.html#behavioral_compatibility
 
 ## [Unreleased]
-[Unreleased]: https://github.com/atlassian/ssh/compare/release-2.3.1...master
+[Unreleased]: https://github.com/atlassian/ssh/compare/release-2.4.0...master
+
+## [2.4.0] - 2021-01-07
+[2.4.0]: https://github.com/atlassian/ssh/compare/release-2.3.1...release-2.4.0
 
 ### Added
 - Add `Ssh.runInBackground`, which yields `SshResult`s unlike the old `SshConnection.startProcess`. Resolve [JPERF-716].
