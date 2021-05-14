@@ -1,5 +1,6 @@
 package com.atlassian.performance.tools.ssh.api
 
+import org.hamcrest.CoreMatchers.containsString
 import org.junit.Assert
 import org.junit.Test
 import java.time.Duration
@@ -60,6 +61,29 @@ class SshTest {
             val failResult = fail.stop(Duration.ofMillis(20))
 
             Assert.assertEquals(127, failResult.exitStatus)
+        }
+    }
+
+    @Test
+    fun shouldTimeOutWhenStopping() {
+        val uninterruptibleSleep = """
+            trap 'echo "got interrupted"' INT
+            for i in {1..10}
+            do
+                echo "sleeping... `date`"
+                sleep 1
+            done
+        """.trimIndent()
+        SshContainer().useSsh { sshHost ->
+            val backgroundSleep = sshHost.runInBackground(uninterruptibleSleep)
+            Thread.sleep(Duration.ofSeconds(3).toMillis())
+            try {
+                backgroundSleep.stop(Duration.ofSeconds(2))
+                Assert.fail("Expected to throw")
+            } catch (e: Exception) {
+                Assert.assertThat(e.message, containsString("sleeping"));
+                Assert.assertThat(e.message, containsString("^Cgot interrupted"));
+            }
         }
     }
 
