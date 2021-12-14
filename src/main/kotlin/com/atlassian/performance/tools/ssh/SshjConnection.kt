@@ -58,7 +58,7 @@ internal class SshjConnection internal constructor(
         stdout: Level,
         stderr: Level
     ): SshResult {
-        logger.debug("${sshHost.userName}$ $cmd")
+        logger.debug("${sshHost.userName}@${sshHost.ipAddress}$ $cmd")
         return session.exec(cmd).use { command ->
             WaitingCommand(command, timeout, stdout, stderr).waitForResult()
         }
