@@ -33,7 +33,7 @@ dependencies {
         "api",
         "core",
         "slf4j-impl"
-    ).forEach { compile("org.apache.logging.log4j:log4j-$it:2.10.0") }
+    ).forEach { compile("org.apache.logging.log4j:log4j-$it:2.17.0") }
     testCompile("junit:junit:4.12")
     testCompile("com.atlassian.performance.tools:ssh-ubuntu:0.1.0")
 }
