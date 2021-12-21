@@ -1,6 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 val kotlinVersion = "1.2.70"
+val log4jVersion = "2.17.0"
 
 plugins {
     kotlin("jvm").version("1.2.70")
@@ -18,6 +19,7 @@ configurations.all {
             }
             when (requested.group) {
                 "org.jetbrains.kotlin" -> useVersion(kotlinVersion)
+                "org.apache.logging.log4j" -> useVersion(log4jVersion)
             }
         }
     }
@@ -33,7 +35,7 @@ dependencies {
         "api",
         "core",
         "slf4j-impl"
-    ).forEach { compile("org.apache.logging.log4j:log4j-$it:2.10.0") }
+    ).forEach { compile("org.apache.logging.log4j:log4j-$it:$log4jVersion") }
     testCompile("junit:junit:4.12")
     testCompile("com.atlassian.performance.tools:ssh-ubuntu:0.1.0")
 }
