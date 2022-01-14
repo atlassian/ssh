@@ -22,7 +22,7 @@ The API consists of all public Kotlin types from `com.atlassian.performance.tool
 - Add logging ip address of target machine where command is run
 
 ### Fixed
-- Bump log4j dependency to 2.17.0
+- Bump log4j dependency to `2.17.1`
 
 ## [2.4.0] - 2021-01-07
 [2.4.0]: https://github.com/atlassian/ssh/compare/release-2.3.1...release-2.4.0
