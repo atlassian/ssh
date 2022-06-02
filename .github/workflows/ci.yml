@@ -12,6 +12,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
     steps:
     - name: Checkout
       uses: actions/checkout@v2
@@ -30,11 +33,15 @@ jobs:
       with:
         name: test-reports
         path: build/reports/tests
+    - name: Get publish token
+      id: publish-token
+      if: github.event.inputs.release == 'yes'
+      uses: atlassian-labs/artifact-publish-token@v1.0.1
     - name: Release
       if: github.event.inputs.release == 'yes'
       env:
-        atlassian_private_username: ${{ secrets.ARTIFACTORY_USERNAME }}
-        atlassian_private_password: ${{ secrets.ARTIFACTORY_API_KEY }}
+        atlassian_private_username: ${{ steps.publish-token.outputs.artifactoryUsername }}
+        atlassian_private_password: ${{ steps.publish-token.outputs.artifactoryApiKey }}
       run: |
         ./gradlew release -Prelease.customUsername=${{ secrets.REPOSITORY_ACCESS_TOKEN }}
         ./gradlew publish
