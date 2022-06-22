@@ -56,7 +56,8 @@ class SshTest {
         SshContainer().useSsh { sshHost ->
             installPing(sshHost)
 
-            val fail = sshHost.runInBackground("nonexistent-command")
+            val fail = sshHost.runInBackground("nonexistant-command")
+            sshHost.waitForAllProcessesToFinish("nonexistant-command", Duration.ofMillis(100))
             val failResult = fail.stop(Duration.ofMillis(20))
 
             Assert.assertEquals(127, failResult.exitStatus)
@@ -65,5 +66,12 @@ class SshTest {
 
     private fun installPing(sshHost: Ssh) {
         sshHost.newConnection().use { it.execute("apt-get update -qq && apt-get install iputils-ping -y") }
+    }
+
+    private fun Ssh.waitForAllProcessesToFinish(
+        processCommand: String,
+        timeout: Duration
+    ) = this.newConnection().use {
+        it.execute("wait `pgrep '$processCommand'`", timeout)
     }
 }
