@@ -56,10 +56,12 @@ class SshTest {
         SshContainer().useSsh { sshHost ->
             installPing(sshHost)
 
-            val fail = sshHost.runInBackground("nonexistent-command")
-            val failResult = fail.stop(Duration.ofMillis(20))
+            repeat(1000) {
+                val fail = sshHost.runInBackground("nonexistant-command")
+                val failResult = fail.stop(Duration.ofMillis(20))
 
-            Assert.assertEquals(127, failResult.exitStatus)
+                Assert.assertEquals(127, failResult.exitStatus)
+            }
         }
     }
 
