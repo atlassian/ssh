@@ -16,7 +16,12 @@ The API consists of all public Kotlin types from `com.atlassian.performance.tool
 [behavioral compatibility]: http://cr.openjdk.java.net/~darcy/OpenJdkDevGuide/OpenJdkDevelopersGuide.v0.777.html#behavioral_compatibility
 
 ## [Unreleased]
-[Unreleased]: https://github.com/atlassian/ssh/compare/release-2.4.2...master
+[Unreleased]: https://github.com/atlassian/ssh/compare/release-2.4.3...master
+
+## [2.4.3] - 2022-06-23
+[2.4.3]: https://github.com/atlassian/ssh/compare/release-2.4.2...release-2.4.3
+
+Empty release to test changes in release process.
 
 ## [2.4.2] - 2022-01-13
 [2.4.2]: https://github.com/atlassian/ssh/compare/release-2.4.1...release-2.4.2
