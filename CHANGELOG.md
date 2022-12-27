@@ -18,6 +18,9 @@ The API consists of all public Kotlin types from `com.atlassian.performance.tool
 ## [Unreleased]
 [Unreleased]: https://github.com/atlassian/ssh/compare/release-2.4.3...master
 
+### Changed
+- Bump ssh-ubuntu library to version without vulnerable log4j
+
 ## [2.4.3] - 2022-06-23
 [2.4.3]: https://github.com/atlassian/ssh/compare/release-2.4.2...release-2.4.3
 

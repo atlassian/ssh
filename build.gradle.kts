@@ -36,8 +36,10 @@ dependencies {
         "core",
         "slf4j-impl"
     ).forEach { compile("org.apache.logging.log4j:log4j-$it:$log4jVersion") }
-    testCompile("junit:junit:4.12")
-    testCompile("com.atlassian.performance.tools:ssh-ubuntu:0.1.0")
+    testCompile("junit:junit:4.13.2")
+    testCompile("com.atlassian.performance.tools:ssh-ubuntu:0.2.6")
+    testCompile("net.java.dev.jna:jna:5.8.0")
+    testCompile("net.java.dev.jna:jna-platform:5.8.0")
 }
 
 tasks
