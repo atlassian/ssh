@@ -16,7 +16,7 @@ configurations.all {
         eachDependency {
             when (requested.module.toString()) {
                 "org.jetbrains:annotations" -> useVersion("15.0")
-                // conflict between jvm-tasks and sshj
+                // conflict between testcontainers, ssh-ubuntu and sshj
                 "org.slf4j:slf4j-api" -> useVersion("1.7.25")
             }
             when (requested.group) {
