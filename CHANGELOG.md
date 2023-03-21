@@ -18,6 +18,12 @@ The API consists of all public Kotlin types from `com.atlassian.performance.tool
 ## [Unreleased]
 [Unreleased]: https://github.com/atlassian/ssh/compare/release-2.4.3...master
 
+### Fixed
+- Drop `log4j-core` and `slf4j-impl` from POM. Fix [JPERF-570].
+- Relax `log4j-api` to a SemVer range.
+
+[JPERF-570]: https://ecosystem.atlassian.net/browse/JPERF-570
+
 ## [2.4.3] - 2022-06-23
 [2.4.3]: https://github.com/atlassian/ssh/compare/release-2.4.2...release-2.4.3
 
